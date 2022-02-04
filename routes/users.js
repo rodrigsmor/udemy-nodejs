@@ -29,12 +29,7 @@ module.exports = (app) => {
         check('email', 'O e-mail está inválido!').notEmpty().isEmail(),
         check('password', 'A senha não pode está vazia!').notEmpty(),
     ], (req, res) => {
-        let errors = validationResult(req);
-
-        if(!errors.isEmpty()) {
-            app.utils.error.send(errors, req, res);
-            return false;
-        }
+        if(!app.utils.validator.user(app, req, res)) return false;
 
         db.insert(req.body, (err, user) => {
             if(err) {
@@ -64,12 +59,7 @@ module.exports = (app) => {
         check('email', 'O e-mail está inválido!').notEmpty().isEmail(),
         check('password', 'A senha não pode está vazia!').notEmpty(),
     ], (req, res) => {
-        let errors = validationResult(req);
-
-        if(!errors.isEmpty()) {
-            app.utils.error.send(errors, req, res);
-            return false;
-        }
+        if(!app.utils.validator.user(app, req, res)) return false;
 
         db.update({ _id:req.params.id}, req.body, err => {
             if(err) {

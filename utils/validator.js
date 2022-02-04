@@ -1,4 +1,4 @@
-const { check, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 module.exports = {
     user: (app, req, res) => {
@@ -7,13 +7,8 @@ module.exports = {
         if(!errors.isEmpty()) {
             app.utils.error.send(errors, req, res);
             return false;
+        } else {
+            return true;
         }
     },
-    checkUser: () => {
-        return [
-            check('name', 'O nome é obrigatório!').notEmpty(),
-            check('email', 'O e-mail está inválido!').notEmpty().isEmail(),
-            check('password', 'A senha não pode está vazia!').notEmpty(),
-        ];
-    }
 }
