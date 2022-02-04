@@ -55,4 +55,17 @@ module.exports = (app) => {
             }
         });
     });
+
+    routeId.delete((req, res) => {
+        db.remove({ _id:req.params.id }, {}, err => {
+            if(err) {
+                app.utils.error.send(err, req, err);
+            } else {
+                res.status(200).json({
+                    message: 'Usuário excluído',
+                    usuario: req.params
+                });
+            }
+        });
+    });
 };
